@@ -12,7 +12,7 @@ function set_up_band_db(){
 		
 		db.transaction(function (tx) {		
 		
-		tx.executeSql('DROP TABLE bands');
+		//tx.executeSql('DROP TABLE bands');
 		tx.executeSql('CREATE TABLE IF NOT EXISTS bands (id UNIQUE, band_name TEXT, stage TEXT, day INTEGER, start_time INTEGER, finish_time INTEGER, band_fav INTEGER, stage_rank INTEGER, day_name, video_link TEXT)');
 		
 		
@@ -107,8 +107,8 @@ function set_up_band_db(){
 		tx.executeSql('INSERT INTO bands (id, band_name, stage, day, start_time, finish_time, band_fav, stage_rank, day_name, video_link) VALUES (67, "KOG And The Zongo Brigade", "West Holts", 20150627, 1100, 1200, 0, 2, "Saturday", "video_link_HERE")');
 		
 		//sun west holts
-		tx.executeSql('INSERT INTO bands (id, band_name, stage, day, start_time, finish_time, band_fav, stage_rank, day_name, video_link) VALUES (68, "Flying Lotus", "West Holts", 20150628, 2200, 1635, 0, 2, "Sunday", "video_link_HERE")');
-		tx.executeSql('INSERT INTO bands (id, band_name, stage, day, start_time, finish_time, band_fav, stage_rank, day_name, video_link) VALUES (69, "FKA Twigs", "West Holts", 20150628, 2030, 1730, 0, 2, "Sunday", "video_link_HERE")');
+		tx.executeSql('INSERT INTO bands (id, band_name, stage, day, start_time, finish_time, band_fav, stage_rank, day_name, video_link) VALUES (68, "Flying Lotus", "West Holts", 20150628, 2200, 2315, 0, 2, "Sunday", "video_link_HERE")');
+		tx.executeSql('INSERT INTO bands (id, band_name, stage, day, start_time, finish_time, band_fav, stage_rank, day_name, video_link) VALUES (69, "FKA Twigs", "West Holts", 20150628, 2030, 2130, 0, 2, "Sunday", "video_link_HERE")');
 		tx.executeSql('INSERT INTO bands (id, band_name, stage, day, start_time, finish_time, band_fav, stage_rank, day_name, video_link) VALUES (70, "Roy Ayers", "West Holts", 20150628, 1900, 2000, 0, 2, "Sunday", "video_link_HERE")');
 		tx.executeSql('INSERT INTO bands (id, band_name, stage, day, start_time, finish_time, band_fav, stage_rank, day_name, video_link) VALUES (71, "Steel Pulse", "West Holts", 20150628, 1730, 1830, 0, 2, "Sunday", "video_link_HERE")');
 		tx.executeSql('INSERT INTO bands (id, band_name, stage, day, start_time, finish_time, band_fav, stage_rank, day_name, video_link) VALUES (72, "Cumbia All Stars", "West Holts", 20150628, 1600, 1700, 0, 2, "Sunday", "video_link_HERE")');
@@ -171,7 +171,7 @@ function set_up_band_db(){
 		tx.executeSql('INSERT INTO bands (id, band_name, stage, day, start_time, finish_time, band_fav, stage_rank, day_name, video_link) VALUES (118, "La Roux", "John Peel Stage", 20150627, 2105, 2205, 0, 4, "Saturday", "video_link_HERE")');
 		tx.executeSql('INSERT INTO bands (id, band_name, stage, day, start_time, finish_time, band_fav, stage_rank, day_name, video_link) VALUES (119, "Death From Above 1979", "John Peel Stage", 20150627, 1935, 2035, 0, 4, "Saturday", "video_link_HERE")');
 		tx.executeSql('INSERT INTO bands (id, band_name, stage, day, start_time, finish_time, band_fav, stage_rank, day_name, video_link) VALUES (120, "Jessie Ware", "John Peel Stage", 20150627, 1815, 1910, 0, 4, "Saturday", "video_link_HERE")');
-		tx.executeSql('INSERT INTO bands (id, band_name, stage, day, start_time, finish_time, band_fav, stage_rank, day_name, video_link) VALUES (121, "Years And Years", "John Peel Stage", 20150627, 1700, 1800, 0, 4, "Saturday", "video_link_HERE")');
+		tx.executeSql('INSERT INTO bands (id, band_name, stage, day, start_time, finish_time, band_fav, stage_rank, day_name, video_link) VALUES (121, "Years And Years", "John Peel Stage", 20150627, 1700, 1750, 0, 4, "Saturday", "video_link_HERE")');
 		tx.executeSql('INSERT INTO bands (id, band_name, stage, day, start_time, finish_time, band_fav, stage_rank, day_name, video_link) VALUES (122, "The Pop Group", "John Peel Stage", 20150627, 1600, 1640, 0, 4, "Saturday", "video_link_HERE")');
 		tx.executeSql('INSERT INTO bands (id, band_name, stage, day, start_time, finish_time, band_fav, stage_rank, day_name, video_link) VALUES (123, "Sleafords", "John Peel Stage", 20150627, 1500, 1540, 0, 4, "Saturday", "video_link_HERE")');
 		tx.executeSql('INSERT INTO bands (id, band_name, stage, day, start_time, finish_time, band_fav, stage_rank, day_name, video_link) VALUES (124, "Slaves", "John Peel Stage", 20150627, 1400, 1440, 0, 4, "Saturday", "video_link_HERE")');
@@ -180,17 +180,17 @@ function set_up_band_db(){
 		tx.executeSql('INSERT INTO bands (id, band_name, stage, day, start_time, finish_time, band_fav, stage_rank, day_name, video_link) VALUES (127, "Isaac Lee Kronkick", "John Peel Stage", 20150627, 1100, 1140, 0, 4, "Saturday", "video_link_HERE")');
 		
 		//sun john peel stage
-		tx.executeSql('INSERT INTO bands (id, band_name, stage, day, start_time, finish_time, band_fav, stage_rank, day_name, video_link) VALUES (128, "Isaac", "John Peel Stage", 20150628, 2205, 2315, 0, 4, "Sunday", "video_link_HERE")');
-		tx.executeSql('INSERT INTO bands (id, band_name, stage, day, start_time, finish_time, band_fav, stage_rank, day_name, video_link) VALUES (129, "Isaac", "John Peel Stage", 20150628, 2035, 2135, 0, 4, "Sunday", "video_link_HERE")');
-		tx.executeSql('INSERT INTO bands (id, band_name, stage, day, start_time, finish_time, band_fav, stage_rank, day_name, video_link) VALUES (130, "Isaac", "John Peel Stage", 20150628, 1905, 2005, 0, 4, "Sunday", "video_link_HERE")');
-		tx.executeSql('INSERT INTO bands (id, band_name, stage, day, start_time, finish_time, band_fav, stage_rank, day_name, video_link) VALUES (131, "Isaac", "John Peel Stage", 20150628, 1750, 1835, 0, 4, "Sunday", "video_link_HERE")');
-		tx.executeSql('INSERT INTO bands (id, band_name, stage, day, start_time, finish_time, band_fav, stage_rank, day_name, video_link) VALUES (132, "Isaac", "John Peel Stage", 20150628, 1640, 1730, 0, 4, "Sunday", "video_link_HERE")');
-		tx.executeSql('INSERT INTO bands (id, band_name, stage, day, start_time, finish_time, band_fav, stage_rank, day_name, video_link) VALUES (133, "Isaac", "John Peel Stage", 20150628, 1540, 1620, 0, 4, "Sunday", "video_link_HERE")');
-		tx.executeSql('INSERT INTO bands (id, band_name, stage, day, start_time, finish_time, band_fav, stage_rank, day_name, video_link) VALUES (134, "Isaac", "John Peel Stage", 20150628, 1440, 1520, 0, 4, "Sunday", "video_link_HERE")');
-		tx.executeSql('INSERT INTO bands (id, band_name, stage, day, start_time, finish_time, band_fav, stage_rank, day_name, video_link) VALUES (135, "Isaac", "John Peel Stage", 20150628, 1340, 1420, 0, 4, "Sunday", "video_link_HERE")');
-		tx.executeSql('INSERT INTO bands (id, band_name, stage, day, start_time, finish_time, band_fav, stage_rank, day_name, video_link) VALUES (136, "Isaac", "John Peel Stage", 20150628, 1240, 1320, 0, 4, "Sunday", "video_link_HERE")');
-		tx.executeSql('INSERT INTO bands (id, band_name, stage, day, start_time, finish_time, band_fav, stage_rank, day_name, video_link) VALUES (137, "Isaac", "John Peel Stage", 20150628, 1140, 1220, 0, 4, "Sunday", "video_link_HERE")');
-		tx.executeSql('INSERT INTO bands (id, band_name, stage, day, start_time, finish_time, band_fav, stage_rank, day_name, video_link) VALUES (138, "Isaac", "John Peel Stage", 20150628, 1100, 1120, 0, 4, "Sunday", "video_link_HERE")');
+		tx.executeSql('INSERT INTO bands (id, band_name, stage, day, start_time, finish_time, band_fav, stage_rank, day_name, video_link) VALUES (128, "FFS Franz Ferdinand And Sparks", "John Peel Stage", 20150628, 2205, 2315, 0, 4, "Sunday", "video_link_HERE")');
+		tx.executeSql('INSERT INTO bands (id, band_name, stage, day, start_time, finish_time, band_fav, stage_rank, day_name, video_link) VALUES (129, "Death Cab For Cutie", "John Peel Stage", 20150628, 2035, 2135, 0, 4, "Sunday", "video_link_HERE")');
+		tx.executeSql('INSERT INTO bands (id, band_name, stage, day, start_time, finish_time, band_fav, stage_rank, day_name, video_link) VALUES (130, "Lianne La Havas", "John Peel Stage", 20150628, 1905, 2005, 0, 4, "Sunday", "video_link_HERE")');
+		tx.executeSql('INSERT INTO bands (id, band_name, stage, day, start_time, finish_time, band_fav, stage_rank, day_name, video_link) VALUES (131, "Charli XCX", "John Peel Stage", 20150628, 1750, 1835, 0, 4, "Sunday", "video_link_HERE")');
+		tx.executeSql('INSERT INTO bands (id, band_name, stage, day, start_time, finish_time, band_fav, stage_rank, day_name, video_link) VALUES (132, "Django Django", "John Peel Stage", 20150628, 1640, 1730, 0, 4, "Sunday", "video_link_HERE")');
+		tx.executeSql('INSERT INTO bands (id, band_name, stage, day, start_time, finish_time, band_fav, stage_rank, day_name, video_link) VALUES (133, "Alvvays", "John Peel Stage", 20150628, 1540, 1620, 0, 4, "Sunday", "video_link_HERE")');
+		tx.executeSql('INSERT INTO bands (id, band_name, stage, day, start_time, finish_time, band_fav, stage_rank, day_name, video_link) VALUES (134, "Prides", "John Peel Stage", 20150628, 1440, 1520, 0, 4, "Sunday", "video_link_HERE")');
+		tx.executeSql('INSERT INTO bands (id, band_name, stage, day, start_time, finish_time, band_fav, stage_rank, day_name, video_link) VALUES (135, "Saint Raymond", "John Peel Stage", 20150628, 1340, 1420, 0, 4, "Sunday", "video_link_HERE")');
+		tx.executeSql('INSERT INTO bands (id, band_name, stage, day, start_time, finish_time, band_fav, stage_rank, day_name, video_link) VALUES (136, "Mini Mansions", "John Peel Stage", 20150628, 1240, 1320, 0, 4, "Sunday", "video_link_HERE")');
+		tx.executeSql('INSERT INTO bands (id, band_name, stage, day, start_time, finish_time, band_fav, stage_rank, day_name, video_link) VALUES (137, "Gengahr", "John Peel Stage", 20150628, 1140, 1220, 0, 4, "Sunday", "video_link_HERE")');
+		tx.executeSql('INSERT INTO bands (id, band_name, stage, day, start_time, finish_time, band_fav, stage_rank, day_name, video_link) VALUES (138, "Lucy Kitchen", "John Peel Stage", 20150628, 1100, 1120, 0, 4, "Sunday", "video_link_HERE")');
 		
 		//fri acoustic stage
 		tx.executeSql('INSERT INTO bands (id, band_name, stage, day, start_time, finish_time, band_fav, stage_rank, day_name, video_link) VALUES (139, "Christy Moore", "Acoustic Stage", 20150626, 2130, 2300, 0, 5, "Friday", "video_link_HERE")');
