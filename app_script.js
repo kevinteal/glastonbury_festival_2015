@@ -434,7 +434,7 @@ function set_up_main_page(){
 								}else{
 								
 									set_up_lineup_page();
-									$("#not_time").html("Once This Festival Starts Bands Will Appear Here <br/><br/>");
+									$("#not_time").html("Once This Festival Starts Bands Will Appear Here. Make Sure App is Up To Date Before Going To Festival. <br/><br/>");
 								}
 								
 						});
@@ -1243,7 +1243,7 @@ function set_up_lineup_page()
 	$.each(day_arr, function (index,val){
 		//append a tab nav bar 
 		//apend a tab page
-		$("#nav_lineup").append('<li><a id=lu_'+val+' href=#tab_'+val+' onFocus=bg_chang('+val+',"lu") data-ajax="false">'+day_name_arr[index]+'</a></li>');
+		$("#nav_lineup").append('<li><a id=lu_'+val+' href=#tab_'+val+' onFocus=bg_chang('+val+',"lu") data-ajax="false">'+day_name_arr[index].substring(0,3)+'</a></li>');
 		$("#tabs_lineup").append('<div id=tab_'+val+' class="ui-body-d ui-content"></div>');
 		
 	});
@@ -1279,7 +1279,7 @@ function set_up_fav_page(){
 	$.each(day_arr, function (index,val){
 		//append a tab nav bar 
 		//apend a tab page
-		$("#navbar_fav").append('<li><a id=day_'+val+' href=#tab_day_'+val+' onFocus=bg_chang('+val+',"day") data-ajax="false">'+day_name_arr[index]+'</a></li>');
+		$("#navbar_fav").append('<li><a id=day_'+val+' href=#tab_day_'+val+' onFocus=bg_chang('+val+',"day") data-ajax="false">'+day_name_arr[index].substring(0,3)+'</a></li>');
 		$("#tabs_day").append('<div id=tab_day_'+val+' class="ui-body-d ui-content"></div>');
 	});
 	$("#day_"+day_arr[0]).addClass('ui-btn-active');
@@ -1370,3 +1370,9 @@ function clearplan(){
 	});
 }
 
+function stage_panel_select_text(){
+	//get stage name from lineup, change stage_panel_select_text to that.
+	var stage_viewing = $("#stage_name_heading").text();
+	//console.log(stage_viewing);
+	$("#Stage_panel_heading_text").text(stage_viewing);
+}

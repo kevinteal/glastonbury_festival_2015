@@ -39,7 +39,7 @@
 	<div data-role="header">
     <a href="#one" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-home ui-btn-icon-notext" data-transition="slide" data-direction="reverse">Back</a>
         <h1 id="stage_name_heading">Lineup</h1>
-        <a href="#stage_panel" class="ui-btn-right  ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-gear ui-btn-icon-notext" >Stages</a>
+        <a onClick="stage_panel_select_text()" href="#stage_panel" class="ui-btn-right  ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-gear ui-btn-icon-notext" >Stages</a>
 	</div><!-- /header -->
 
 	<div data-role="content" data-theme="a">
@@ -63,7 +63,7 @@
      
 	<div data-role="panel" data-position="right" data-position-fixed="false" data-display="overlay" id="stage_panel" data-theme="b">
 					<!-- panel content goes here -->
-                   <center> <h4 >Select Stage</h4></center>
+                   <center> <h4 id="Stage_panel_heading_text">Select Stage</h4></center>
     <ul data-role="listview" id="panel_stages">
       
     </ul>
