@@ -62,6 +62,39 @@
 	font-size:1em;
 	overflow:hidden;
 }
+
+.lineup_band_az{
+	width:100%;
+	border-bottom:1px #80FF00 solid;
+	height:65px;
+	margin-top:5px;
+	margin-bottom:5px;
+	text-align:center;
+	font-size:1em;
+	overflow:hidden;
+}
+.az_band_name{
+	float:left;
+	width:30%;
+	height:100%;
+	padding: 2px;
+    box-sizing: border-box;
+}
+.az_time_stage{
+	float:left;
+	width:35%;
+	height:50%;
+}
+.az_day_switch{
+	float:left;
+	height:50%;
+	width:35%;
+}
+.ui-tabs .ui-tabs-panel {
+    padding:0;
+}
+
+
 .morehight{
 	height:100px;
 }

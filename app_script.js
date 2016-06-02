@@ -1,8 +1,11 @@
 // JavaScript Document
-var db = openDatabase('glastonbury_2015_bands_db', '1.0', 'bands db', 2 * 1024 * 1024);
+var db = openDatabase('glastonbury_2016_bands_db', '1.0', 'bands db', 2 * 1024 * 1024);
 var total_stages =0;
 var day_arr=[];
 var day_name_arr=[];
+
+var _table_name_ = "bands_2016_v1";
+
 $(document).ready(function(e) {
     console.log("ready!");
 	//setup database if it does not exist
@@ -10,7 +13,7 @@ $(document).ready(function(e) {
 	//if date is not a soni date then show message saying when festival starts bands will appear here
 	set_up_band_db();
 	$(document).on("popupafteropen", function() {
-    $('#popupInfo_lineup, #popupInfo_mainpage, #popupInfo_fav').popup('reposition', 'positionTo: window');
+    $('#popupInfo_mainpage, #popupInfo_fav').popup('reposition', 'positionTo: window');
 });
 });
 
@@ -243,7 +246,7 @@ function add_to_plan2(e,method){
 		//console.log("its on");
 		
 		db.transaction(function (txs) {
-				txs.executeSql('UPDATE bands SET band_fav=1 WHERE id='+band_id+'');
+				txs.executeSql('UPDATE '+_table_name_+' SET band_fav=1 WHERE id='+band_id+'');
 		});
 		
 		
@@ -251,7 +254,7 @@ function add_to_plan2(e,method){
 		//take band off see list, make band_fav 0
 		//console.log("na na na na na");
 		db.transaction(function (txs) {
-				txs.executeSql('UPDATE bands SET band_fav=0 WHERE id='+band_id+'');
+				txs.executeSql('UPDATE '+_table_name_+' SET band_fav=0 WHERE id='+band_id+'');
 		});
 	}
 	
@@ -263,7 +266,7 @@ function add_to_plan2(e,method){
 //defunked function, unused
 function set_up_stages(){
 	db.transaction(function (txs) {
-						txs.executeSql('select max(stage_rank) as total_stages from bands', [], function(txs, results){
+						txs.executeSql('select max(stage_rank) as total_stages from '+_table_name_+' ', [], function(txs, results){
 							var result = results.rows.item(0);
 							
 							total_stages = result.total_stages;
@@ -288,11 +291,12 @@ function set_up_main_page(){
 	//time=0050;
 	//sql to select all unique dates.
 	//create array as unknown lenght
+	console.log("today: "+fulldate);
 	
 	db.transaction(function (txs) {
 		
 		//how many stages?
-		txs.executeSql('select DISTINCT stage_rank, stage from bands order by stage_rank ASC', [], function(txs, results){
+		txs.executeSql('select DISTINCT stage_rank, stage from '+_table_name_+' order by stage_rank ASC', [], function(txs, results){
 							var len = results.rows.length, i;
 							
 							var last_stage=0;
@@ -335,7 +339,7 @@ function set_up_main_page(){
 		
 						//find the days the festival is on for
 						//also finds the number of days
-						txs.executeSql('select day,day_name from bands group by day order by day asc', [], function(txs, results){
+						txs.executeSql('select day,day_name from '+_table_name_+' group by day order by day asc', [], function(txs, results){
 							var len = results.rows.length, i;
 							for(i=0;i<len;i++)
 								{	
@@ -370,9 +374,9 @@ function set_up_main_page(){
 										//find any bands that start before midnight and finish after current time
 										//if no results run new search where start time can be normal but sqlfulldate still -1
 										//sqlfulldate would/is already set to modified -1
-	 								   sql = "select * from bands where day = "+sqlfulldate+" and start_time > 700 and finish_time BETWEEN "+time+" AND 700";
+	 								   sql = "select * from "+_table_name_+" where day = "+sqlfulldate+" and start_time > 700 and finish_time BETWEEN "+time+" AND 700";
 									}else{
-									sql = "select * from bands where day = "+sqlfulldate+" and start_time <= "+time+" and finish_time > "+time;
+									sql = "select * from "+_table_name_+" where day = "+sqlfulldate+" and start_time <= "+time+" and finish_time > "+time;
 									}
 									
 																		
@@ -385,7 +389,7 @@ function set_up_main_page(){
 									if(time<700 && len != num_stages ){
 										console.log("lenkkkkevin");
 										db.transaction(function (txs2) {
-											sql = "select * from bands where day = "+sqlfulldate+" and start_time <= "+time+" and finish_time > "+time;
+											sql = "select * from "+_table_name_+" where day = "+sqlfulldate+" and start_time <= "+time+" and finish_time > "+time;
 											txs2.executeSql(sql, [], function(txs, results){
 												var len = results.rows.length, i;
 												//console.log("HERHEHEHEkeek"+len);
@@ -400,7 +404,7 @@ function set_up_main_page(){
 									// third option of time being 2340 and band starting at 2300 and playing until after midnight
 									if(time>700 && len == 0 ){
 										db.transaction(function (txs2) {
-											sql = "select * from bands where day = "+sqlfulldate+" and start_time BETWEEN 700 AND "+time+" and finish_time BETWEEN 000 AND 700";
+											sql = "select * from "+_table_name_+" where day = "+sqlfulldate+" and start_time BETWEEN 700 AND "+time+" and finish_time BETWEEN 000 AND 700";
 											txs2.executeSql(sql, [], function(txs, results){
 												var len = results.rows.length, i;
 												console.log(len);
@@ -456,9 +460,9 @@ function next_bands(txs,StageName,fulldate,time){
 	sqlfulldate = fulldate;
 	if(time<700){
 			sqlfulldate=sqlfulldate-1;
-			sql = "select * from bands where day = "+sqlfulldate+" and start_time > "+time+" and stage_rank='"+StageName+"' order by start_time ASC Limit 1";
+			sql = "select * from "+_table_name_+" where day = "+sqlfulldate+" and start_time > "+time+" and stage_rank='"+StageName+"' order by start_time ASC Limit 1";
 	}else{
-		sql = "select * from bands where day = "+fulldate+" and start_time > "+time+" and stage_rank='"+StageName+"' order by start_time ASC Limit 1";
+		sql = "select * from "+_table_name_+" where day = "+fulldate+" and start_time > "+time+" and stage_rank='"+StageName+"' order by start_time ASC Limit 1";
 	}
 
 
@@ -471,7 +475,7 @@ function next_bands(txs,StageName,fulldate,time){
 							if(time>700 && len == 0 ){
 								var sqlfulldate2 = fulldate - 1;
 									db.transaction(function (txs2) {
-										sql = "select * from bands where day = "+fulldate+" and start_time BETWEEN 000 AND 700 and stage_rank='"+StageName+"' order by start_time ASC Limit 1 ";
+										sql = "select * from "+_table_name_+" where day = "+fulldate+" and start_time BETWEEN 000 AND 700 and stage_rank='"+StageName+"' order by start_time ASC Limit 1 ";
 										txs2.executeSql(sql, [], function(txs, results){
 											var len = results.rows.length, i;
 											//console.log(len);
@@ -610,11 +614,12 @@ function set_up_lineup(stageNum,method){
 	
 	
 
+if(stageNum!="AZ"){
  db.transaction(function (txs) {
 		 				//how many days is being logged.	
 						console.log(day_arr.length);
 		
-						txs.executeSql('select * from bands where stage_rank = '+stageNum+' and start_time>=700 order by start_time DESC ', [], function(txs, results){
+						txs.executeSql('select * from '+_table_name_+' where stage_rank = '+stageNum+' and start_time>=700 order by start_time DESC ', [], function(txs, results){
 							var len = results.rows.length, i;
 							for(var i=0;i<len;i++)
 								{	
@@ -623,15 +628,15 @@ function set_up_lineup(stageNum,method){
 								var content = lineup_content(BandRecord);	
 								$("#tab_"+BandRecord.day).append(content);		
 								}
-								var popup_content = '<div data-role="popup" id="popupInfo_lineup" data-position-to="window" data-transition="pop" class="ui-content" data-theme="a" style="max-width:350px;"> <p id="popupband_lineup"></p> <span id="popuplink_lineup"></span> <span id="popupvid_lineup"></span></div>';
-								console.log("popcount");
-								$("#tab_"+BandRecord.day).append(popup_content);
+								
+								
+								
 								
 							$(".lineup_band").trigger('create');
-								$( "#popupInfo_lineup" ).popup();
+								
 								
 						});
-						txs.executeSql('select * from bands where stage_rank = '+stageNum+' and start_time<700 order by start_time ASC ', [], function(txs, results){
+						txs.executeSql('select * from '+_table_name_+' where stage_rank = '+stageNum+' and start_time<700 order by start_time ASC ', [], function(txs, results){
 							
 							
 							var len = results.rows.length, i;
@@ -654,7 +659,42 @@ function set_up_lineup(stageNum,method){
 								// $('#tabs_lineup').tabs("refresh");
 								//$("#tabs_lineup").trigger('updatelayout');
 			 });
-			 
+}else{
+	//user has selected AZ of all bands.
+	console.log("user clicked AZ");
+	//get earlist day of festival. put all bands inside one tab
+	var az_day = "";
+	db.transaction(function (txs) {
+		 	
+			txs.executeSql('select day from '+_table_name_+' order by day ASC Limit 1', [], function(txs, results){
+				var day = results.rows.item(0).day;
+				$( "#tabs_lineup" ).tabs( "option", "active", 0 );
+				bg_chang(day,"lu");
+				az_day = day;
+			});
+			
+			
+			txs.executeSql('select * from '+_table_name_+' order by band_name ASC', [], function(txs, results){
+				var len = results.rows.length, i;
+				for(var i=0;i<len;i++)
+					{	
+						var BandRecord = results.rows.item(i);
+						var content = lineup_content_az(BandRecord);	
+						$("#tab_"+az_day).append(content);	
+						console.log(BandRecord.band_name);	
+					}
+					console.log(az_day);
+		$(".lineup_band_az").trigger('create');
+								
+								
+		});
+			
+			
+			
+	});
+	
+	
+}
 			 if(method=="panel"){
 				$("#stage_panel").panel("close");
 			 }
@@ -792,7 +832,7 @@ function load_band_fav(){
 		// console.log(day_arr);
 		 $.each(day_arr, function (index,val){
 						
-						txs.executeSql('select * from bands where band_fav=1 and day='+val+' and start_time>=700 order by start_time ASC ', [], function(txs, results){
+						txs.executeSql('select * from '+_table_name_+' where band_fav=1 and day='+val+' and start_time>=700 order by start_time ASC ', [], function(txs, results){
 							var len = results.rows.length, i;
 							
 							var preEnd_1 = 0;
@@ -860,7 +900,7 @@ function load_band_fav(){
 							$("#tabs_day").trigger('updatelayout');
 						});//exectue
 						
-						txs.executeSql('select * from bands where band_fav=1 and day='+val+' and start_time<700 order by start_time ASC ', [], function(txs, results){
+						txs.executeSql('select * from '+_table_name_+' where band_fav=1 and day='+val+' and start_time<700 order by start_time ASC ', [], function(txs, results){
 							var len = results.rows.length, i;
 							
 							var checker = false;
@@ -1359,7 +1399,7 @@ function smaller_band_name(band_name){
 function clearplan(){
 	console.log("clear plan");
 	db.transaction(function (txs) {
-				txs.executeSql('UPDATE bands SET band_fav=0 WHERE band_fav=1');
+				txs.executeSql('UPDATE '+_table_name_+' SET band_fav=0 WHERE band_fav=1');
 		});
 		//tabs need refreshing but this way should work faster for same result.
 		//$("#tab_one_day,#tab_two_day,#tab_three_day").empty();
@@ -1368,6 +1408,49 @@ function clearplan(){
 		$("#tab_day_"+val).empty();	
 	
 	});
+}
+
+function lineup_content_az(BandRecord){
+	$("#stage_name_heading").text("AZ Bands");
+	var finish_time = BandRecord.finish_time.toString();
+	if(finish_time.length<4){
+		finish_time=add_zeros(finish_time);
+	}						
+								
+	finish_time=finish_time.substring(0,2)+":"+finish_time.substring(2,4);
+									
+	var start_time = BandRecord.start_time.toString();
+								
+	if(start_time.length<4){
+		start_time=add_zeros(start_time);
+		}
+		
+		start_time=start_time.substring(0,2)+":"+start_time.substring(2,4);
+		var flip_off = "selected";
+		var flip_on = "";
+		if(BandRecord.band_fav==1){
+			flip_off="";
+			flip_on="selected";
+			//console.log(BandRecord.band_fav);
+			}
+			var name_length = BandRecord.band_name.length;
+			var show_name = BandRecord.band_name;
+			if(name_length>20){
+				show_name = show_name.substr(0,20)+"...";
+				}
+				
+				var content = '<div class="lineup_band_az">'+
+								'<div class="az_band_name">'+show_name+'</div>'+
+								'<div class="az_time_stage"><span class="darker_text small_text">'+BandRecord.stage.substring(0,10)+'...</span></div>'+
+								'<div class="az_time_stage"><span class="darker_text small_text">'+start_time+ ' - ' +finish_time+'</span></div>'+
+								'<div class="az_day_switch"><span class="darker_text small_text">'+BandRecord.day_name.substring(0,3)+'</span></div>'+
+								'<div class="az_day_switch">'+
+								'<form><select name=flip'+BandRecord.id+' id=flip'+BandRecord.id+' data-role="flipswitch" data-mini="true" data-theme="c" onChange="add_to_plan2(this,0)">'+
+						'<option value="off" '+flip_off+' >Off</option> <option value="on" '+flip_on+' >On</option></select></form> </div>'
+								'</div>';
+
+	
+	return content;
 }
 
 function stage_panel_select_text(){
